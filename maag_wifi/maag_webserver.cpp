@@ -2,6 +2,9 @@
 	ToDo: 	- pack all the local variables into the class--> they are static ones, so we must re-declare them in this file!
 			- get rid of all unnecessary inludes
 
+
+	V1.0
+
 */
 #include <string.h>
 #include "freertos/FreeRTOS.h"
