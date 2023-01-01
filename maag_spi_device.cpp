@@ -28,15 +28,15 @@ MaagSpiDevice::MaagSpiDevice()
 // }
 
 // ToDo: handle lots of init parameters here
-esp_err_t MaagSpiDevice::initDevice(spi_host_device_t host_, int clock_speed_hz_, gpio_num_t cs_gpio_nr_)
+esp_err_t MaagSpiDevice::initDevice(spi_host_device_t host_, int clock_speed_hz_, uint8_t mode_, gpio_num_t cs_gpio_nr_)
 {
 	// init cs gpio
 	m_gpio_cs.initAsOutput(cs_gpio_nr_, GPIO_PULLDOWN_DISABLE, GPIO_PULLUP_ENABLE);
 	// init spi device and connect to host
 	spi_device_interface_config_t devcfg = {};
-	devcfg.clock_speed_hz = clock_speed_hz_; // 10 kHz, will be roundet to closest possible (80Mhz/x = 10000)
-	devcfg.mode = 0;						 // SPI mode 0
-	devcfg.spics_io_num = -1;				 // no chip select, we handle this ourselves
+	devcfg.clock_speed_hz = clock_speed_hz_; 		// 10 kHz, will be roundet to closest possible (80Mhz/x = 10000)
+	devcfg.mode = mode_;						 	// SPI mode (0/1 depending on rising/falling edge)
+	devcfg.spics_io_num = -1;				 		// no chip select, we handle this ourselves
 	devcfg.queue_size = 1;
 	// devcfg.flags = SPI_DEVICE_HALFDUPLEX;		// lets not change any default modes...
 	devcfg.command_bits = 0;
